@@ -15,7 +15,7 @@ public class MainPage extends BasePage {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);/* Инициализирует элементы страницы с помощью PageFactory.
          *     Она ищет все аннотированные элементы @FindBy в классе MainPage и связывает их с реальными элементами веб-страницы.
          *     Используется AjaxElementLocatorFactory для ожидания элементов до их появления на странице в течение указанного времени
-         */
+         ***/
     }
 
     /**
