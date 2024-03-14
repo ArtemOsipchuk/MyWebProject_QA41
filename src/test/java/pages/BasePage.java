@@ -2,6 +2,7 @@ package pages;
 
 import config.BaseTest;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -13,7 +14,15 @@ public class BasePage {
         driver=webDriver;//Эта строка присваивает переданный экземпляр веб-драйвера переменной driver, что позволяет другим классам иметь доступ к этому веб-драйверу через метод getDriver()
     }
 
-
+    public static boolean isElementPresent(WebElement element) {
+        try {
+            // Попытка выполнить любое действие с элементом
+            element.isDisplayed();
+            return true; // Элемент присутствует на странице
+        } catch (NoSuchElementException | NullPointerException e) {
+            return false; // Элемент не найден на странице
+        }
+    }
 
 
 }

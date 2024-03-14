@@ -1,5 +1,6 @@
 package pages;
 
+import config.BaseTest;
 import model.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,15 +12,21 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class ContactsPage extends BasePage {
 
     @FindBy(xpath = "//button[contains(text(),'Sign Out']")
     WebElement signOutButton;
 
+
     public ContactsPage(WebDriver driver){
         setDriver(driver);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
+    }
+
+    public boolean isElementPersist(WebElement element){
+        return isElementPresent(element);
     }
 
     public boolean messageIsDisplayed(String text){
@@ -31,6 +38,21 @@ public class ContactsPage extends BasePage {
 
     }
 
+    public List<WebElement> getDataFromContactsList(By locator){
+        return BaseTest.getDriver().findElements(locator);
+    }
+
+    public boolean deleteContact(Contact contact){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));// Создается объект класса WebDriverWait,
+        // который ожидает видимости элемента на странице в течение 5 секунд.
+
+        WebElement nameInContact = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(), '"+contact.getName().toString()+"')]")));
+        nameInContact.click();
+
+        WebElement removeButton = driver.findElement(By.xpath("//button[contains(text(),'Remove')]"));
+        removeButton.click();
+       return nameInContact.isDisplayed();
+    }
 
 
     /**
@@ -39,7 +61,6 @@ public class ContactsPage extends BasePage {
      * @param contact
      * @return boolean
      */
-
     public boolean getDataFromContactList(Contact contact){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));// Создается объект класса WebDriverWait,
         // который ожидает видимости элемента на странице в течение 5 секунд.

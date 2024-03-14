@@ -19,8 +19,37 @@ import pages.LoginPage;
 import pages.MainPage;
 
 import java.time.Duration;
+import java.util.List;
 
 public class PhoneBookTest  extends BaseTest{
+
+    @Test(description = "this test verifies that the contact has been deleted")
+    @Parameters ("browser")
+    public void deleteContact(@Optional("chrome") String browser){
+        Allure.description("this test verifies that the contact has been deleted");
+        MainPage mainPage = new MainPage(getDriver());
+        Allure.step("registered user authorisation");
+        LoginPage loginPage = mainPage.openTopMenu(TopMenuItem.LOGIN.toString());
+        loginPage.fillEmailField(PropertiesReader.getProperty("existingUserEmail"))
+                .fillPasswordField(PropertiesReader.getProperty("existingUserPassword")).clickByLoginButton();
+        Allure.step("adding a new contact");
+        mainPage.openTopMenu(TopMenuItem.ADD.toString());
+        AddPage addPage = new AddPage(getDriver());
+        Contact newContact = new Contact(
+                NameAndLastNameGenerator.generateName(),
+                NameAndLastNameGenerator.generateLastName(),
+                PhoneNumberGenerator.generatePhoneNumber(),
+                EmailGenerator.generateEmail(10,5,3),
+                AddressGenerator.generateAddress(),
+                "new description");
+        newContact.toString();
+        addPage.fillFormAndSave(newContact);
+        Allure.step("deleting a new contact");
+        ContactsPage contactsPage = new ContactsPage(getDriver());
+        Allure.step("verifying that a contact has been deleted");
+        Assert.assertTrue(contactsPage.deleteContact(newContact));
+
+    }
 
     @Test(description = "The test checks the empty field warning declaration.")
     @Parameters("browser")
@@ -63,4 +92,23 @@ public class PhoneBookTest  extends BaseTest{
         Assert.assertTrue(contactsPage.messageIsDisplayed("No Contacts here!"));
 
         }
-   }
+
+//    @Test
+//    @Description("Successful Registration")
+//    public void successfulRegistration(){
+//        Allure.description("Successful Registration test.");
+//        MainPage mainPage = new MainPage(getDriver());
+//        Allure.step("Open LOGIN menu");
+//        LoginPage lpage = mainPage.openTopMenu(TopMenuItem.LOGIN.toString());
+//        lpage.fillEmailField(EmailGenerator.generateEmail(5,5,3))
+//                .fillPasswordField(PasswordStringGenerator.generateString());
+//        Alert alert =  lpage.clickByRegistartionBUtton();
+//        if (alert==null){
+//            ContactsPage contactsPage = new ContactsPage(getDriver());
+//            Assert.assertTrue( contactsPage. isElementPersist(getDriver()
+//                    .findElement(By.xpath("//button[contains(text(),'Sign Out')]"))));
+//        }else {
+//            TakeScreen.takeScreenshot("Successful Registration");}
+//    }
+
+}
