@@ -9,7 +9,7 @@ public class AddressGenerator {
     private static final String[] states = {"AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"};
 
     private static final Random random = new Random();
-    public static String generateAddress(){
+    public static String generateAddress(int number){
         String city = cities[random.nextInt(cities.length)];
         String street = streets[random.nextInt(streets.length)];
         int number = random.nextInt(300);
