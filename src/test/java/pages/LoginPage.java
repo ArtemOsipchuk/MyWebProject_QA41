@@ -42,7 +42,7 @@ public class LoginPage extends BasePage {
        return this;// Затем он также возвращает объект LoginPage, чтобы этот метод также можно было использовать в цепочке вызовов.
     }
 
-    public Alert clickByRegistartionBUtton(){ // Этот метод кликает по кнопке регистрации на веб-странице.
+    public Alert clickByRegistartionButton(){ // Этот метод кликает по кнопке регистрации на веб-странице.
         // Он вызывает метод click() для registrationButton.
         registrationButton.click();
         return getAlertIfPresent(); // Затем он также возвращает объект LoginPage, чтобы этот метод также можно было использовать в цепочке вызовов.

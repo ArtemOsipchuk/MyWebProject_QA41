@@ -24,7 +24,7 @@ public class MainPage extends BasePage {
      * @return Любой тип, наследованый от BasePage
      * @param <T> Это обобщённый тип данных.
      */
-    public <T extends BasePage> T openTopMenu(String topMenuItem){//  <T extends BasePage>: Это обобщённый тип данных. Он объявляет тип T,который является подтипом класса BasePage.
+    public static <T extends BasePage> T openTopMenu(String topMenuItem){//  <T extends BasePage>: Это обобщённый тип данных. Он объявляет тип T,который является подтипом класса BasePage.
         WebElement menuItem = driver.findElement(By.xpath("//a[contains(text(), '"+topMenuItem+"')]"));
         menuItem.click();
 
